@@ -9,19 +9,15 @@ set automaticaly.  This does away with the need for ro.vold.switchablepair
 to be set in the build.prop.
 
 Change-Id: Id83fc90d771ca3a7179f2c50d0ae828eb3dbaa9f
-
-Conflicts:
-	res/values/cm_strings.xml
-	src/com/android/settings/deviceinfo/Memory.java
 ---
  AndroidManifest.xml                             |  1 +
  res/values/cm_strings.xml                       |  7 ++++
- res/xml/device_info_memory.xml                  |  5 +++
- src/com/android/settings/deviceinfo/Memory.java | 54 ++++++++++++++++++++++++-
+ res/xml/device_info_memory.xml                  |  6 +++
+ src/com/android/settings/deviceinfo/Memory.java | 53 ++++++++++++++++++++++++-
  4 files changed, 66 insertions(+), 1 deletion(-)
 
 diff --git a/AndroidManifest.xml b/AndroidManifest.xml
-index 46c0142..6eeaee1 100644
+index ce4df2f..6063811 100644
 --- a/AndroidManifest.xml
 +++ b/AndroidManifest.xml
 @@ -64,6 +64,7 @@
@@ -33,10 +29,10 @@ index 46c0142..6eeaee1 100644
      <permission
          android:name="android.permission.REQUEST_SUPERUSER"
 diff --git a/res/values/cm_strings.xml b/res/values/cm_strings.xml
-index 400f82e..964d2d0 100644
+index 1df77b8..6116510 100644
 --- a/res/values/cm_strings.xml
 +++ b/res/values/cm_strings.xml
-@@ -1002,4 +1002,11 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
+@@ -931,6 +931,13 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
      <string name="privacy_guard_manager_show_system_apps">Show built-in apps</string>
      <string name="privacy_guard_manager_filter_permissions">Permission filter</string>
  
@@ -47,25 +43,28 @@ index 400f82e..964d2d0 100644
 +    <string name="reboot_prompt_title">Reboot required</string>
 +    <string name="reboot_prompt_message">In order to apply the changed configuration, a reboot is required.\n\nDo you want to reboot now?</string>
 +
- </resources>
+     <!-- Hardware tunables - Vibrator intensity -->
+     <string name="vibrator_intensity_title">Vibrator intensity</string>
+     <string name="vibrator_warning">Values higher than %1$d are not recommended</string>
 diff --git a/res/xml/device_info_memory.xml b/res/xml/device_info_memory.xml
-index e905f39..2010b2c 100644
+index e905f39..edf670a 100644
 --- a/res/xml/device_info_memory.xml
 +++ b/res/xml/device_info_memory.xml
-@@ -16,6 +16,11 @@
- 
+@@ -17,6 +17,12 @@
  <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
          android:title="@string/storage_settings_title">
+ 
 +    <CheckBoxPreference
 +        android:key="key_switch_storage"
 +        android:title="@string/storage_switch_title"
 +        android:summaryOn="@string/storage_switch_summary_on"
 +        android:summaryOff="@string/storage_switch_summary_off" />
- 
++
  <!-- Preference categories are dynamically created based on the list of available storage volumes -->
  
+ </PreferenceScreen>
 diff --git a/src/com/android/settings/deviceinfo/Memory.java b/src/com/android/settings/deviceinfo/Memory.java
-index 529c81c..ddb5702 100644
+index 529c81c..62c4c1d 100644
 --- a/src/com/android/settings/deviceinfo/Memory.java
 +++ b/src/com/android/settings/deviceinfo/Memory.java
 @@ -31,15 +31,19 @@ import android.hardware.usb.UsbManager;
@@ -142,11 +141,10 @@ index 529c81c..ddb5702 100644
              ConfirmClearCacheFragment.show(this);
              return true;
          }
-@@ -415,4 +450,21 @@ public class Memory extends SettingsPreferenceFragment {
+@@ -415,4 +450,20 @@ public class Memory extends SettingsPreferenceFragment {
              return builder.create();
          }
      }
-+
 +    private void showRebootPrompt() {
 +        AlertDialog dialog = new AlertDialog.Builder(getActivity())
 +                .setTitle(R.string.reboot_prompt_title)
@@ -165,5 +163,5 @@ index 529c81c..ddb5702 100644
 +    }
  }
 -- 
-1.8.3.msysgit.0
+1.9.1
 
