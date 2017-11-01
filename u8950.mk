@@ -26,9 +26,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 # The GPS configuration appropriate for this device.
 $(call inherit-product, device/common/gps/gps_eu_supl.mk)
 
-$(call inherit-product, vendor/huawei/u8833/u8833-vendor.mk)
+$(call inherit-product, vendor/huawei/u8950/u8950-vendor.mk)
 
-DEVICE_PACKAGE_OVERLAYS += device/huawei/u8833/overlay
+DEVICE_PACKAGE_OVERLAYS += device/huawei/u8950/overlay
 
 PRODUCT_AAPT_CONFIG := normal hdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
@@ -80,22 +80,22 @@ PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
 PRODUCT_COPY_FILES += \
-    device/huawei/u8833/ramdisk/init.huawei.rc:root/init.huawei.rc \
-    device/huawei/u8833/ramdisk/init.huawei.usb.rc:root/init.huawei.usb.rc \
-    device/huawei/u8833/ramdisk/fstab.huawei:root/fstab.huawei \
-    device/huawei/u8833/ramdisk/ueventd.huawei.rc:root/ueventd.huawei.rc \
-    device/huawei/u8833/ramdisk/tp/1191601.img:root/tp/1191601.img
+    device/huawei/u8950/ramdisk/init.huawei.rc:root/init.huawei.rc \
+    device/huawei/u8950/ramdisk/init.huawei.usb.rc:root/init.huawei.usb.rc \
+    device/huawei/u8950/ramdisk/fstab.huawei:root/fstab.huawei \
+    device/huawei/u8950/ramdisk/ueventd.huawei.rc:root/ueventd.huawei.rc \
+    device/huawei/u8950/ramdisk/tp/1191601.img:root/tp/1191601.img
 	
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,device/huawei/u8833/prebuilt/system,system)
+    $(call find-copy-subdir-files,*,device/huawei/u8950/prebuilt/system,system)
 
 # Files needed for recovery image
 PRODUCT_COPY_FILES += \
-    device/huawei/u8833/recovery/sbin/charge_recovery:/recovery/root/sbin/charge_recovery \
-    device/huawei/u8833/recovery/sbin/rmt_storage_recovery:/recovery/root/sbin/rmt_storage_recovery \
-    device/huawei/u8833/recovery/sbin/rmt_oeminfo_recovery:/recovery/root/sbin/rmt_oeminfo_recovery \
-    device/huawei/u8833/recovery/sbin/linker:/recovery/root/sbin/linker \
-    device/huawei/u8833/recovery/sbin/charge.sh:/recovery/root/sbin/charge.sh
+    device/huawei/u8950/recovery/sbin/charge_recovery:/recovery/root/sbin/charge_recovery \
+    device/huawei/u8950/recovery/sbin/rmt_storage_recovery:/recovery/root/sbin/rmt_storage_recovery \
+    device/huawei/u8950/recovery/sbin/rmt_oeminfo_recovery:/recovery/root/sbin/rmt_oeminfo_recovery \
+    device/huawei/u8950/recovery/sbin/linker:/recovery/root/sbin/linker \
+    device/huawei/u8950/recovery/sbin/charge.sh:/recovery/root/sbin/charge.sh
 
 # Install the features available on this device.
 PRODUCT_COPY_FILES += \
@@ -125,7 +125,7 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 $(call inherit-product, build/target/product/full.mk)
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
-PRODUCT_NAME := full_u8833
-PRODUCT_DEVICE := u8833
+PRODUCT_NAME := full_u8950
+PRODUCT_DEVICE := u8950
 PRODUCT_MANUFACTURER := HUAWEI
-PRODUCT_MODEL := Ascend Y300
+PRODUCT_MODEL := Ascend G600

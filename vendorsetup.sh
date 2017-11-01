@@ -14,9 +14,13 @@
 # limitations under the License.
 #
 
-add_lunch_combo u8833-userdebug
-add_lunch_combo u8833-eng
-add_lunch_combo cm_u8833-userdebug
+add_lunch_combo u8950-userdebug
+add_lunch_combo u8950-eng
+add_lunch_combo cm_u8950-userdebug
 
-# Run device patches on the tree.
- sh device/huawei/u8833/patches/apply.sh
+# Patches
+if [ ! -e device/huawei/ok ]
+then
+sh device/huawei/u8950/patches/apply.sh
+touch device/huawei/ok
+fi

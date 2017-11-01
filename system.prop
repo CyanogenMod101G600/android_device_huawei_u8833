@@ -1,5 +1,5 @@
 #
-# system.prop for u8833
+# system.prop for u8950
 #
 
 # Bluetooth
@@ -33,9 +33,9 @@ ro.fm.transmitter=false
 ro.fm.mulinst.recording.support=false
 
 # Huawei
-ro.confg.hw_appfsversion=u8833VCM10_1_SYSIMG
-ro.confg.hw_appsbootversion=u8833VCM10_1_APPSBOOT
-ro.confg.hw_appversion=u8833VCM10_1_KERNEL
+ro.confg.hw_appfsversion=u8950VCM10_1_SYSIMG
+ro.confg.hw_appsbootversion=u8950VCM10_1_APPSBOOT
+ro.confg.hw_appversion=u8950VCM10_1_KERNEL
 
 # Media
 media.stagefright.enable-player=true
@@ -60,12 +60,12 @@ persist.thermal.monitor=true
 
 # Telephony
 rild.libargs=-d /dev/smd0
-rild.libpath=/system/lib/libril-qc-qmi-1.so
+rild.libpath=/system/lib/libril-qc-1.so
 ril.subscription.types=NV,RUIM
 ro.telephony.call_ring.multiple=false
 ro.telephony.ril_class=HuaweiQualcommRIL
 ro.telephony.ril.v3=qcomdsds,skippinpukcount
-gsm.version.baseband=2030
+gsm.version.baseband=1040
 
 # USB
 persist.sys.usb.config=mtp,adb

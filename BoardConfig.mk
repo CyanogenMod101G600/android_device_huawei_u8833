@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
--include vendor/huawei/u8833/BoardConfigVendor.mk
+-include vendor/huawei/u8950/BoardConfigVendor.mk
 
 # Platform
 TARGET_NO_BOOTLOADER := true
@@ -46,18 +46,18 @@ BOARD_USES_QCOM_HARDWARE := true
 COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
 
 # Kernel 
-TARGET_KERNEL_SOURCE := kernel/huawei/u8833
+TARGET_KERNEL_SOURCE := kernel/huawei/u8950
 TARGET_KERNEL_CONFIG := cm_msm8x25_defconfig
-TARGET_BOOTLOADER_BOARD_NAME := u8833
+TARGET_BOOTLOADER_BOARD_NAME := u8950
 BOARD_KERNEL_CMDLINE := androidboot.hardware=huawei
 BOARD_KERNEL_BASE := 0x00200000
 BOARD_PAGE_SIZE := 2048
 TARGET_USERIMAGES_USE_EXT4 := true
 
-TARGET_SPECIFIC_HEADER_PATH := device/huawei/u8833/include
+TARGET_SPECIFIC_HEADER_PATH := device/huawei/u8950/include
 
 # Graphics
-BOARD_EGL_CFG := device/huawei/u8833/prebuilt/system/lib/egl/egl.cfg
+BOARD_EGL_CFG := device/huawei/u8950/prebuilt/system/lib/egl/egl.cfg
 USE_OPENGL_RENDERER := true
 TARGET_USES_ION := true
 TARGET_QCOM_DISPLAY_VARIANT := legacy
@@ -69,55 +69,51 @@ BOARD_WANTS_EMMC_BOOT := true
 # Video
 COMMON_GLOBAL_CFLAGS += -DQCOM_BSP
 
+# FM Radio
+BOARD_HAVE_FM_RADIO := true
+BOARD_FM_DEVICE := bcm4330
+BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
+
 # Qualcomm hardware
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_QCOM_LIBS := true
 COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
 
 # Wi-Fi
-BOARD_WLAN_DEVICE                := ath6kl
-BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_ath6kl
-BOARD_HOSTAPD_DRIVER             := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_ath6kl
-WPA_SUPPLICANT_VERSION           := VER_0_8_X
-WIFI_DRIVER_MODULE_PATH          := "/data/misc/wifi/load/ar6000.ko"
-WIFI_DRIVER_MODULE_NAME          := "ar6000"
-WIFI_TEST_INTERFACE              := "sta"
-WIFI_DRIVER_FW_PATH_STA          := "sta"
-WIFI_DRIVER_FW_PATH_AP           := "ap"
-WIFI_DRIVER_FW_PATH_P2P          := "p2p"
-BOARD_HAVE_HUAWEI_WIFI := true
-BOARD_HAS_ATH_WLAN := true
+BOARD_WLAN_DEVICE := bcmdhd
+WPA_SUPPLICANT_VERSION := VER_0_8_X
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
+BOARD_HOSTAPD_DRIVER := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_bcmdhd
+BOARD_LEGACY_NL80211_STA_EVENTS := true
+WIFI_DRIVER_FW_PATH_AP := "/system/etc/fw_4330_b2.bin"
+WIFI_DRIVER_FW_PATH_STA := "/system/etc/fw_4330_b2.bin"
+WIFI_DRIVER_FW_PATH_P2P := "/system/etc/fw_4330_b2.bin"
+WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/dhd/parameters/firmware_path"
+WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/dhd.ko"
+WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/etc/fw_4330_b2.bin nvram_path=/system/etc/nvram_4330.txt"
+WIFI_DRIVER_MODULE_NAME := "dhd"
+WIFI_EXT_MODULE_PATH := "/system/lib/modules/cfg80211.ko"
+WIFI_EXT_MODULE_NAME := "cfg80211"
 
-KERNEL_EXTERNAL_MODULES:
-	mkdir -p $(TARGET_ROOT_OUT)/wifi
-	rm -rf $(TARGET_OUT_INTERMEDIATES)/ath6kl-huawei
-	cp -a hardware/atheros/wifi/ath6kl-huawei $(TARGET_OUT_INTERMEDIATES)/
-	$(MAKE) -C $(TARGET_OUT_INTERMEDIATES)/ath6kl-huawei/cfg80211 KERNEL_OUT=$(KERNEL_OUT) ARCH="arm" CROSS_COMPILE="arm-eabi-" modules
-	$(MAKE) -C $(TARGET_OUT_INTERMEDIATES)/ath6kl-huawei/ar6000 KERNEL_OUT=$(KERNEL_OUT) ARCH="arm" CROSS_COMPILE="arm-eabi-" modules
-	$(TARGET_OBJCOPY) --strip-unneeded $(TARGET_OUT_INTERMEDIATES)/ath6kl-huawei/cfg80211/cfg80211.ko $(TARGET_ROOT_OUT)/wifi/cfg80211.ko
-	$(TARGET_OBJCOPY) --strip-unneeded $(TARGET_OUT_INTERMEDIATES)/ath6kl-huawei/ar6000/ar6000.ko $(TARGET_ROOT_OUT)/wifi/ar6000.ko
-
-TARGET_KERNEL_MODULES := KERNEL_EXTERNAL_MODULES
+TARGET_CUSTOM_WIFI := ../../device/huawei/u8950/libhardware_legacy/wifi/wifi.c
 
 # Audio
 TARGET_PROVIDES_LIBAUDIO := true
 
 # RIL
-BOARD_RIL_CLASS := ../../../device/huawei/u8833/ril/
+BOARD_RIL_CLASS := ../../../device/huawei/u8950/ril/
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/huawei/u8833/bluetooth
+BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/huawei/u8950/bluetooth
+BOARD_BLUEDROID_VENDOR_CONF := device/huawei/u8950/bluetooth/vnd_u8950.txt
 
 # Camera
 USE_CAMERA_STUB := false
 COMMON_GLOBAL_CFLAGS += -DMR0_CAMERA_BLOB
-
-# FM Radio
-BOARD_HAVE_QCOM_FM := true
-COMMON_GLOBAL_CFLAGS += -DQCOM_FM_ENABLED
 
 # Dalvik
 TARGET_ARCH_LOWMEM := true
@@ -133,18 +129,18 @@ TARGET_FORCE_CPU_UPLOAD := true
 
 # Recovery
 BOARD_HAS_NO_SELECT_BUTTON := true
-TARGET_PREBUILT_RECOVERY_KERNEL := device/huawei/u8833/recovery/kernel
-TARGET_RECOVERY_INITRC := device/huawei/u8833/recovery/init.rc
-TARGET_RECOVERY_FSTAB := device/huawei/u8833/recovery/etc/recovery.fstab
+TARGET_PREBUILT_RECOVERY_KERNEL := device/huawei/u8950/recovery/kernel
+TARGET_RECOVERY_INITRC := device/huawei/u8950/recovery/init.rc
+TARGET_RECOVERY_FSTAB := device/huawei/u8950/recovery/etc/recovery.fstab
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_USES_MMCUTILS := true
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/huawei/u8833/recovery/recovery-keys.c
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/huawei/u8950/recovery/recovery-keys.c
 DEVICE_RESOLUTION := 480x800
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun%d/file
 BOARD_USE_CUSTOM_RECOVERY_FONT:= \"roboto_10x18.h\"
-BOARD_CUSTOM_GRAPHICS := ../../../device/huawei/u8833/recovery/graphics.c
+BOARD_CUSTOM_GRAPHICS := ../../../device/huawei/u8950/recovery/graphics.c
 
 # USB
 BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun%d/file"
@@ -171,4 +167,4 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1058320384
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 1190596608
 BOARD_FLASH_BLOCK_SIZE := 131072
 
-TARGET_OTA_ASSERT_DEVICE := u8833,u8951,hwY300-0100,hwY300-0151,hwG510-0100,hwG510-0151,hwG510-0200,msm7627a,msm7x27a
+TARGET_OTA_ASSERT_DEVICE := u8950,u8951,hwY300-0100,hwY300-0151,hwG510-0100,hwG510-0151,hwG510-0200,msm7627a,msm7x27a
