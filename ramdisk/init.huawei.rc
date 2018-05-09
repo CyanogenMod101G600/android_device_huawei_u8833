@@ -157,19 +157,10 @@ on post-fs-data
 
     chmod 0666 /sys/class/rfkill/rfkill0/state
 
-# Create  WIFI filesystem structure
-    mkdir /data/misc/wifi 0770 wifi wifi
+    # Create the directories used by the Wireless subsystem
+    mkdir /data/misc/wifi/load 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
-    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
-    chown dhcp dhcp /data/misc/dhcp
-    chmod 0660 /data/misc/wifi/wpa_supplicant.conf
-    chmod 0660 /data/misc/wifi/hostapd.conf
-    chmod 0660 /data/hostapd/hostapd.conf
-    mkdir /data/misc/wifi/load
-    chmod 0775 /data/misc/wifi/load
-    chown system system /data/misc/wifi/load/
-    mkdir /data/misc/wifi/bin 0775 system system
 
     # Create directory used by audio subsystem
     mkdir /data/misc/audio 0770 audio audio
@@ -250,17 +241,22 @@ service dhcpcd_eth0 /system/bin/dhcpcd -BKLG
     disabled
     oneshot
 
-service dhcpcd_p2p /system/bin/dhcpcd -BKLG
-    class main
-    disabled
-    oneshot
-
 service iprenew_eth0 /system/bin/dhcpcd -n
     class main
     disabled
     oneshot	
 
+service dhcpcd_p2p /system/bin/dhcpcd -BKLG
+    class main
+    disabled
+    oneshot
+
 service iprenew_p2p /system/bin/dhcpcd -n p2p
+    class main
+    disabled
+    oneshot
+
+service dhcpcd_bnep0 /system/bin/dhcpcd -BKLG
     class main
     disabled
     oneshot
