@@ -56,7 +56,7 @@ com.qc.hardware=true
 dev.pm.dyn_samplingrate=1
 dev.pm.dyn_sample_period=700000
 ro.vendor.extension_library=/system/lib/libqc-opt.so
-persist.thermal.monitor=true
+persist.thermal.monitor=false
 
 # Telephony
 rild.libargs=-d /dev/smd0
