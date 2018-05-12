@@ -28,6 +28,12 @@ on emmc-fs
 on early-boot
     # Set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
+    
+on init 
+
+# Right now vendor lives on the same filesystem as system,
+# but someday that may change.
+    symlink /system/vendor /vendor
 
 on post-fs
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
