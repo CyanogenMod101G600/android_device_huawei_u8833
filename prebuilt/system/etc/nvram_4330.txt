@@ -15,7 +15,8 @@ ag0=252
 ag1=252
 aa2g=1
 aa5g=1
-ccode=GB
+ccode=EU
+regrev=5
 
 #for BT-coexistence
 btc_params80=0
@@ -115,4 +116,5 @@ loidacmode5g=1
 
 swctrlmap_2g=0x84048404, 0x82028202, 0x84048404, 0x010202, 0x1ff
 swctrlmap_5g=0xC040C040, 0xB030A020, 0xA020C040, 0x010A02, 0x2F8
+
 
