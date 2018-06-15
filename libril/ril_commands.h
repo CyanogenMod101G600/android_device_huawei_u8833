@@ -127,4 +127,3 @@
     {0, dispatchVoid, responseVoid},
     {0, dispatchVoid, responseVoid},
     {RIL_REQUEST_IMS_REGISTRATION_STATE_V6, dispatchVoid, responseInts},
-    {RIL_REQUEST_IMS_SEND_SMS_V6, dispatchImsSms, responseSMS},

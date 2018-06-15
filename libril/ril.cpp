@@ -3154,12 +3154,12 @@ struct unsol_conv {
 };
 
 static struct unsol_conv unsolResponse_conv[] = {
-    { RIL_UNSOL_RESPONSE_IMS_NETWORK_STATE_CHANGED_V6, RIL_UNSOL_RESPONSE_IMS_NETWORK_STATE_CHANGED },
+    { RIL_UNSOL_RESPONSE_IMS_NETWORK_STATE_CHANGED_V6, 0 },
     { RIL_UNSOL_RESPONSE_TETHERED_MODE_STATE_CHANGED_V6, 0 },
     { RIL_UNSOL_RESPONSE_DATA_NETWORK_STATE_CHANGED_V6, 0 },
     { RIL_UNSOL_ON_SS_V6, 0 },
     { RIL_UNSOL_STK_CC_ALPHA_NOTIFY_V6, 0 },
-    { RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED_V6, RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED },
+    { RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED_V6, 0 },
     { RIL_UNSOL_QOS_STATE_CHANGED_IND_V6, 0 }
 };
 
@@ -3176,7 +3176,7 @@ void RIL_onUnsolicitedResponse(int unsolResponse, void *data,
     for (int i = 0; i < (int)NUM_ELEMS(unsolResponse_conv); i++) {
         if (unsolResponse_conv[i].old == unsolResponse) {
             unsolResponse = unsolResponse_conv[i].curr;
-            RLOGD("RIL_onUnsolicitedResponse %d -> %d",
+            ALOGD("RIL_onUnsolicitedResponse %d -> %d",
                 unsolResponse_conv[i].old, unsolResponse);
             if (unsolResponse == 0) /* Unsupported */
                 return;
